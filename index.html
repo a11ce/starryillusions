@@ -1,0 +1,95 @@
+<head>
+
+<style>
+
+* { margin:0; padding:0; } /* to remove the top and left whitespace */
+
+html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+
+mainCanvas { display:block;
+              } /* To remove the scrollbars */
+
+
+/* to show the canvas bounds */
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+  <canvas id="mainCanvas" >
+
+
+<script>
+
+var c;
+
+window.onload = function(){
+
+                // Put all your code here
+                // And at the end run start() function
+                init();
+            }
+
+
+function init ()
+{
+  document.getElementById("mainCanvas").style.background = "#000000";
+
+ c = document.getElementById("mainCanvas");
+c.style.border = "none";
+
+var ctx = c.getContext("2d");
+
+window.addEventListener('resize', resizeCanvas, false);
+resizeCanvas();
+setInterval(resizeCanvas, 1);
+
+
+}
+
+function resizeCanvas() {
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+
+        /**
+         * Your drawings need to be inside this function otherwise they will be reset when
+         * you resize the browser window and the canvas goes will be cleared.
+         */
+        drawStuff();
+}
+
+function drawStuff() {
+  var ctx = c.getContext("2d");
+
+
+
+  var colorrange = [0,60,240];
+
+  for(var i = 0; i<5000;i++)
+  {
+    var x = Math.random() * c.offsetWidth;
+  y = Math.random() * c.offsetHeight,
+  radius = Math.random() * 1.2,
+  hue = colorrange[getRandom(0,colorrange.length - 1)],
+  sat = getRandom(50,100);
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 360);
+  ctx.fillStyle = "hsl(" + hue + ", " + sat + "%, 88%)";
+  ctx.fill();
+  }
+
+//  ctx.fill();
+}
+
+function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+</script>
+
+</body>
